@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bus Spreadsheet Monitor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+        .active {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .inactive {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .result {
+            background-color: #e2e3e5;
+            color: #383d41;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .btn-start {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-stop {
+            background-color: #dc3545;
+            color: white;
+        }
+        .refresh {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+        .pi-info {
+            margin-top: 30px;
+            font-size: 12px;
+            text-align: center;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Spreadsheet Monitor</h1>
+    
+    <div class="status {{ 'active' if is_active else 'inactive' }}">
+        Service Status: {{ "ACTIVE" if is_active else "INACTIVE" }}
+    </div>
+
+    <div class="status active">
+        {{ result }}
+    </div>  
+
+    <div class="result" style="display: none">
+        <h3>Last Check Result:</h3>
+        <p>{{ result }}</p>
+    </div>
+    
+    <div class="btn-container">
+        <form action="/start" method="post" style="display: inline;">
+            <button type="submit" class="btn btn-start" {{ "disabled" if is_active else "" }}>
+                Start Monitoring
+            </button>
+        </form>
+        
+        <form action="/stop" method="post" style="display: inline;">
+            <button type="submit" class="btn btn-stop" {{ "disabled" if not is_active else "" }}>
+                Stop Monitoring
+            </button>
+        </form>
+    </div>
+    
+    <div class="refresh">
+        <p>Page refreshes automatically every 10 seconds</p>
+    </div>
+    
+    <div class="pi-info">
+        <p>Running on Raspberry Pi - Local Network Access</p>
+    </div>
+
+    <script>
+        // Auto refresh the page every 10 seconds
+        setTimeout(function() {
+            window.location.reload();
+        }, 10000);
+    </script>
+</body>
+</html>
