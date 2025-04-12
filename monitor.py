@@ -14,7 +14,8 @@ from google.oauth2.service_account import Credentials
 # Removed unused imports for OAuth flow
 
 # The ID of the spreadsheet
-SPREADSHEET_ID = '1sKIxt7K583QofrB3yOiDo-7--CUp0wxAOg2vMIWZHwA'
+SPREADSHEET_ID = '1sKIxt7K583QofrB3yOiDo-7--CUp0wxAOg2vMIWZHwA' #school sheet
+#SPREADSHEET_ID = '1p4LyleLPwSBTyKfNirlpo5F2bbe6kYI_VWkfFrWoFiw' #test sheet
 
 # The range to check (D19)
 RANGE_NAME = 'PM!D19:E19'
@@ -76,8 +77,8 @@ def check_cell():
         last_cell_value = cell_value  # Store the last cell value for reference
 
         if 'DEPARTED' in cell_value and 'NOT' not in cell_value:
-            cell_value_time = values[0][1] if values and values[0][1] else ''
-            message = f"*** {cell_value} at {cell_value_time} ***"
+            current_time = time.strftime("%H:%M", time.localtime())
+            message = f"*** {cell_value} at {current_time} ***"
             print(message)
             last_check_result = message
             send_notification()
@@ -95,10 +96,31 @@ def check_cell():
 
 def send_notification():
     """
-    Empty function to be implemented later with a notification mechanism.
-    This function will be called when cell D19 contains the word 'Departed'.
+    Sends a push notification using ntfy.sh API when cell D19 contains the word 'Departed'.
     """
-    print("Notification would be sent here!")
+    import requests
+
+    try:
+        # Get the notification message from the last check result
+        message = last_check_result
+        
+        # Send notification to ntfy.sh
+        response = requests.post(
+            'https://ntfy.sh/joetest333',  # You can change this topic name
+            data=message.encode('utf-8'),
+            headers={
+                'Title': 'Bus Status Alert',
+                'Priority': 'high',
+                'Tags': 'bus,alert'
+            }
+        )
+        
+        if response.status_code == 200:
+            print(f"Notification sent successfully: {message}")
+        else:
+            print(f"Failed to send notification. Status code: {response.status_code}")
+    except Exception as e:
+        print(f"Error sending notification: {str(e)}")
 
 # Initialize Flask application
 app = Flask(__name__)
