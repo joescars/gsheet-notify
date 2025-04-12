@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """
-Google Spreadsheet Cell Monitor - Checks cell D19 for the word 'Departed'
+Google Spreadsheet Cell Monitor - Checks cell for keyword and sends notification
+This script monitors a specific cell in a Google Spreadsheet for the word 'Departed'.
+When the word is detected, it sends a push notification using ntfy.sh API.
 Includes HTTP endpoints and web interface to start and stop polling
 """
 import os
