@@ -14,5 +14,5 @@ jobs:
       
       - name: Copy files to folder
         run: |
-          cp -r gsheet-notify/gsheet-notify/* /home/pi/gsheet-notifier-copilot
+          cp -r ${{github.workspace}}/* /home/pi/gsheet-notifier-copilot
 
