@@ -11,3 +11,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      
+      - name: Copy files to folder
+        run: |
+          cp -r gsheet-notify/gsheet-notify/* /home/pi/gsheet-notifier-copilot
+
