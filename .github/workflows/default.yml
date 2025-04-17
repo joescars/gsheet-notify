@@ -18,8 +18,8 @@ jobs:
       
       - name: Restart Service
         run: |
-          sudo systemctl restart gsheet-notifier-copilot
+          sudo systemctl restart gsheet-monitor.service
           sleep 5
-          sudo systemctl status gsheet-notifier-copilot
+          sudo systemctl status gsheet-monitor.service
 
 
