@@ -15,4 +15,11 @@ jobs:
       - name: Copy files to folder
         run: |
           cp -r ${{github.workspace}}/* /home/pi/gsheet-notifier-copilot
+      
+      - name: Restart Service
+        run: |
+          sudo systemctl restart gsheet-notifier-copilot
+          sleep 5
+          sudo systemctl status gsheet-notifier-copilot
+
 
