@@ -71,7 +71,7 @@ def check_cell():
         
         # Check if the cell value has changed since the last check
         if 'last_cell_value' in globals() and last_cell_value == cell_value:
-            message = f"Cell D19 has not changed. Current value: '{cell_value}'"
+            message = f"No Change; Current value: '{cell_value}'"
             print(message)
             last_check_result = message
             return False
