@@ -240,6 +240,7 @@ def main():
     print("  - http://<raspberry_pi_ip>:5000/stop - Stop polling")
     print("  - http://<raspberry_pi_ip>:5000/status - Check polling status")
     
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
     # Run the Flask application on all interfaces so it's accessible from the local network
     # Setting threaded=True improves handling of concurrent requests on the Raspberry Pi
     app.run(host='0.0.0.0', port=5588, debug=False, threaded=True)
