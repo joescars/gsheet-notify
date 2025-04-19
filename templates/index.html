@@ -14,7 +14,7 @@
 
           <h1 class="card-title">Bus Status</h1>
           <p class="card-text">Checks the status of the bus!</p>
-          <button type="button" class="btn {{ 'btn-success' if is_active else 'btn-secondary' }} btn-lg px-3 me-md-2 fw-bold mb-2">Service Status: {{ "ACTIVE" if is_active else "INACTIVE" }}</button>
+          <button type="button" class="btn {{ 'btn-success' if is_active else 'btn-secondary' }} btn-lg px-3 me-md-2 fw-bold mb-2 shadow p-3">Service Status: {{ "ACTIVE" if is_active else "INACTIVE" }}</button>
           
           <div class="alert alert-info fw-bold shadow p-3" role="alert">
             {{result}}
@@ -25,14 +25,14 @@
             <div class="row">
                 <div class="col-sm">
                     <form action="/start" method="post">
-                        <button type="submit" class="btn btn-primary" {{ "disabled" if is_active else "" }}>
+                        <button type="submit" class="btn btn-primary shadow p-3" {{ "disabled" if is_active else "" }}>
                             Start Monitoring
                         </button>
                     </form>
                 </div> 
                 <div class="col-sm">
                     <form action="/stop" method="post">
-                        <button type="submit" class="btn btn-danger" {{ "disabled" if not is_active else "" }}>
+                        <button type="submit" class="btn btn-danger shadow p-3" {{ "disabled" if not is_active else "" }}>
                             Stop Monitoring
                         </button>
                     </form>
