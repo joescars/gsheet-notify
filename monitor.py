@@ -49,7 +49,9 @@ def check_cell():
     """Check the cell D19 in the spreadsheet for the word 'Departed'."""
     global last_check_result
     global last_cell_value
-    
+    global last_check_time 
+    last_check_time = "Last Checked: " + time.strftime("%H:%M", time.localtime())
+
     try:
         service = get_service()
         sheet = service.spreadsheets()
@@ -71,7 +73,7 @@ def check_cell():
         
         # Check if the cell value has changed since the last check
         if 'last_cell_value' in globals() and last_cell_value == cell_value:
-            message = f"No Change; Current value: '{cell_value}'"
+            message = f"Current value: '{cell_value}'"
             print(message)
             last_check_result = message
             return False
@@ -79,8 +81,9 @@ def check_cell():
         last_cell_value = cell_value  # Store the last cell value for reference
 
         if 'DEPARTED' in cell_value and 'NOT' not in cell_value:
-            current_time = time.strftime("%H:%M", time.localtime())
-            message = f"*** {cell_value} at {current_time} ***"
+            # current_time = time.strftime("%H:%M", time.localtime())
+            # message = f"*** {cell_value} at {current_time} ***"
+            message = f"*** {cell_value}"
             print(message)
             last_check_result = message
             send_notification()
@@ -136,6 +139,8 @@ scheduler_thread = None
 # Variable to store the last check result
 last_check_result = "No check performed yet"
 
+last_check_time = ""
+
 def start_polling():
     """Start the scheduled polling of the spreadsheet."""
     global polling_active
@@ -163,7 +168,8 @@ def index():
     return render_template(
         'index.html', 
         is_active=polling_active,
-        result=last_check_result
+        result=last_check_result,
+        check_time=last_check_time
     )
 
 @app.route('/start', methods=['GET', 'POST'])
@@ -220,7 +226,8 @@ def status_endpoint():
         return jsonify({
             "status": status, 
             "message": f"Polling is currently {status}",
-            "last_result": last_check_result
+            "last_result": last_check_result,
+            "check_time": last_check_time
         })
     else:
         return redirect('/')
