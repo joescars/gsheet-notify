@@ -83,7 +83,7 @@ def check_cell():
         if 'DEPARTED' in cell_value and 'NOT' not in cell_value:
             # current_time = time.strftime("%H:%M", time.localtime())
             # message = f"*** {cell_value} at {current_time} ***"
-            message = f"*** {cell_value}"
+            message = f"*** {cell_value} ***"
             print(message)
             last_check_result = message
             send_notification()
