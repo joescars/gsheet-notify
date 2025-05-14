@@ -49,8 +49,7 @@ def check_cell():
     """Check the cell D19 in the spreadsheet for the word 'Departed'."""
     global last_check_result
     global last_cell_value
-    global last_check_time 
-    last_check_time = "Last Checked: " + time.strftime("%H:%M", time.localtime())
+    global last_check_time     
 
     try:
         service = get_service()
@@ -61,6 +60,8 @@ def check_cell():
                                    range=RANGE_NAME).execute()
         values = result.get('values', [])
 
+        last_check_time = "Last Checked: " + time.strftime("%H:%M", time.localtime())
+        
         if not values:
             message = 'No data found in cell D19.'
             print(message)
