@@ -152,7 +152,7 @@ def start_polling():
     check_cell()
     
     # Schedule the check_cell function to run every minute
-    schedule.every(10).seconds.do(check_cell)
+    schedule.every(30).seconds.do(check_cell)
     
     # Run the scheduler in a loop as long as polling is active
     while polling_active:
