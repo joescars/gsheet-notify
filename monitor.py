@@ -117,7 +117,8 @@ def send_notification():
             headers={
                 'Title': 'Bus Status Alert',
                 'Priority': 'high',
-                'Tags': 'bus,alert'
+                'Tags': 'bus,alert',
+                'Click': 'https://login.herecomesthebus.com/Map.aspx'
             }
         )
         
