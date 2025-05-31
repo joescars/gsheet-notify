@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark" lang="en">
+<head>
+    <title>Bus Status History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+    <link rel="manifest" href="/static/site.webmanifest">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">School Bus Monitor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/history">History</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col">
+                <h1>Status History</h1>
+                <p class="text-muted mb-4">
+                    Current Status: <span class="badge {{ 'bg-success' if is_active else 'bg-secondary' }}">{{ "Active" if is_active else "Inactive" }}</span>
+                </p>
+                
+                <div class="card shadow">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0">Status Log</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        {% if history %}
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover mb-0">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">Time</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Message</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for timestamp, status, message in history %}
+                                    <tr class="{{ 'table-warning' if status == 'departed' else 'table-danger' if status == 'error' else '' }}">
+                                        <td>{{ timestamp }}</td>
+                                        <td>
+                                            <span class="badge {{ 'bg-warning text-dark' if status == 'departed' else 'bg-danger' if status == 'error' else 'bg-info' }}">
+                                                {{ status|capitalize }}
+                                            </span>
+                                        </td>
+                                        <td>{{ message }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="p-4 text-center">
+                            <p class="text-muted">No history available yet. Start monitoring to begin recording status history.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <a href="/" class="btn btn-primary">Back to Monitor</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
