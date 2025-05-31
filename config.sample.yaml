@@ -1,0 +1,17 @@
+# Google Spreadsheet Monitor Configuration
+
+# Google Sheets API Configuration
+spreadsheet_id: ""  # school sheet
+range_name: "PM!D19:E19"
+api_key: ""
+
+# Monitoring Configuration
+polling_interval: 30  # seconds
+
+# Notification Configuration
+notification_topic: ""
+
+# Web Server Configuration
+host: "0.0.0.0"
+port: 5588
+debug: false

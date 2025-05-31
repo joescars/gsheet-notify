@@ -32,6 +32,7 @@ api_key.txt
 *.pem
 *.env
 .env
+config.yaml
 
 # Logs
 logs/
@@ -54,3 +55,4 @@ instance/
 # Distribution / packaging
 .Python
 build/
+
