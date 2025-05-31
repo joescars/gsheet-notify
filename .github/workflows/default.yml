@@ -21,7 +21,8 @@ jobs:
       - name: Install dependencies
         run: |
           cd /home/pi/gsheet-notifier-copilot
-          source venv/bin/activate
+          source givenv/bin/activate
+          pip install --upgrade pip
           pip install -r requirements.txt
       - name: Restart Service
         run: |
