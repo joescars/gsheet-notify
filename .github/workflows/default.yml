@@ -18,6 +18,11 @@ jobs:
         run: |
           cp -r ${{github.workspace}}/* /home/pi/gsheet-notifier-copilot
       
+      - name: Install dependencies
+        run: |
+          cd /home/pi/gsheet-notifier-copilot
+          source .venv/bin/activate
+          pip install -r requirements.txt
       - name: Restart Service
         run: |
           sudo systemctl restart gsheet-monitor.service
