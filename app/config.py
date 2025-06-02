@@ -79,20 +79,9 @@ def load_config():
                     continue
             config[config_key] = value
     
-    # Check for API key in api_key.txt if not set
-    if config['api_key'] is None:
-        api_key_file = os.path.join(base_dir, 'api_key.txt')
-        if os.path.exists(api_key_file):
-            logger.info(f"Loading API key from {api_key_file}")
-            try:
-                with open(api_key_file, 'r') as f:
-                    config['api_key'] = f.read().strip()
-            except Exception as e:
-                logger.error(f"Error loading API key file: {str(e)}")
-    
     # Final check for API key
     if config['api_key'] is None:
-        logger.error("No API key found. Please set GOOGLE_API_KEY environment variable or create an api_key.txt file")
+        logger.error("No API key found. Please set GOOGLE_API_KEY environment variable or add it to config.yaml")
         return None
     
     return config

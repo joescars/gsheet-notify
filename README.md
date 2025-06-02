@@ -69,10 +69,11 @@ pip install -r requirements.txt
 4. Create an API key:
    - Navigate to "APIs & Services" > "Credentials"
    - Click "Create Credentials" > "API key"
-5. Save your API key in a file named `api_key.txt` in the project directory:
+5. Add your API key to the `config.yaml` file:
 
-   ```bash
-   echo "YOUR_API_KEY" > api_key.txt
+   ```yaml
+   # In config.yaml
+   api_key: "YOUR_API_KEY_HERE"
    ```
 
 ### 6. Configure the Application
@@ -237,7 +238,7 @@ python -m pytest --cov=app tests/
    - Verify no firewall is blocking port 5588
 
 2. **API key errors:**
-   - Verify your API key is correctly stored in `api_key.txt` or set as an environment variable
+   - Verify your API key is correctly set in your `config.yaml` file or as an environment variable
    - Check that the Google Sheets API is enabled for your project
    - Ensure the API key has access to the Google Sheets API
 

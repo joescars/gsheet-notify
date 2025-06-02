@@ -1,15 +1,15 @@
-# Google Spreadsheet Monitor Configuration
+# Google Spreadsheet Monitor Configuration (SAMPLE)
 
 # Google Sheets API Configuration
-spreadsheet_id: ""  # school sheet
-range_name: "PM!D19:E19"
-api_key: ""
+api_key: "YOUR_GOOGLE_SHEETS_API_KEY_HERE"
+spreadsheet_id: "YOUR_SPREADSHEET_ID_HERE"
+range_name: "SHEET_NAME!CELL_RANGE"
 
 # Monitoring Configuration
 polling_interval: 30  # seconds
 
 # Notification Configuration
-notification_topic: ""
+notification_topic: "your-ntfy-topic-name"
 
 # Web Server Configuration
 host: "0.0.0.0"
