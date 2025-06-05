@@ -10,18 +10,34 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
     <link rel="manifest" href="/static/site.webmanifest">
 
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .status-card {
+            max-width: 500px; /* Max width for larger screens */
+            width: 90%; /* Responsive width */
+        }
+        .btn-xl {
+            padding: 0.8rem 1.5rem;
+            font-size: 1.1rem;
+        }
+    </style>
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">School Bus Monitor</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="/static/favicon-32x32.png" alt="" width="24" height="24" class="d-inline-block align-text-top me-2">
+                Bus Monitor
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
@@ -33,76 +49,90 @@
         </div>
     </nav>
 
-    <div data-bs-theme="light" class="card mx-auto mt-5 shadow p-3" style="width: 21rem;">
-        <div class="card-body text-center">
+    <div class="container d-flex justify-content-center align-items-center min-vh-100 py-4">
+        <div data-bs-theme="light" class="card status-card shadow-lg p-3 p-md-4">
+            <div class="card-body text-center">
+                <h1 class="card-title mb-3">Bus Status</h1>
+                <p class="card-text text-muted mb-4">Live updates from the bus tracker.</p>
 
-          <h1 class="card-title">Bus Status</h1>
-          <p class="card-text">Checks the status of the bus!</p>
-          <button type="button" class="btn {{ 'btn-success' if is_active else 'btn-secondary' }} btn-lg px-3 me-md-2 fw-bold mb-2 shadow p-3">Service Status: {{ "ACTIVE" if is_active else "INACTIVE" }}</button>
-          
-          <div class="alert alert-info fw-bold shadow p-3" role="alert">
-            {{result}}
-          </div>
-
-          <div class="alert alert-info shadow p-3" role="alert">
-            {{check_time}}
-          </div>
-
-          <!-- Start Buttons -->
-           <div class="container-sm">
-            <div class="row">
-                <div class="col-sm">
-                    <form action="/start" method="post">
-                        <button type="submit" class="btn btn-primary shadow p-3 mb-3" {{ "disabled" if is_active else "" }}>
-                            Start Monitoring
-                        </button>
-                    </form>
-                </div> 
-                <div class="col-sm">
-                    <form action="/stop" method="post">
-                        <button type="submit" class="btn btn-danger shadow p-3" {{ "disabled" if not is_active else "" }}>
-                            Stop Monitoring
-                        </button>
-                    </form>
-                </div>
-            </div>
-            </div>
-            <!-- End Buttons -->
-            
-            <!-- Check Now Button -->
-            <div class="container-sm mt-3">
-                <form action="/check_now" method="post">
-                    <button type="submit" class="btn btn-info shadow p-3">
-                        Check Now
+                <div class="mb-4">
+                    <button type="button" class="btn {{ 'btn-success' if is_active else 'btn-secondary' }} btn-xl fw-bold shadow-sm w-100">
+                        Service: {{ "ACTIVE" if is_active else "INACTIVE" }}
                     </button>
-                </form>
-            </div>
-            
-            <!-- Recent History -->
-            {% if history %}
-            <div class="mt-4">
-                <h5>Recent Status</h5>
-                <ul class="list-group shadow">
-                    {% for timestamp, status, message in history[:5] %}
-                    <li class="list-group-item {% if status == 'departed' %}list-group-item-warning{% elif status == 'error' %}list-group-item-danger{% else %}list-group-item-light{% endif %}">
-                        <small>{{ timestamp }}</small><br>
-                        {{ message }}
-                    </li>
-                    {% endfor %}
-                </ul>
-                <div class="mt-2">
-                    <a href="/history" class="btn btn-sm btn-secondary">View Full History</a>
                 </div>
+                
+                <div class="alert {{ 'alert-warning' if 'DEPARTED' in result.upper() and 'NOT' not in result.upper() else 'alert-danger' if 'ERROR' in result.upper() else 'alert-info' }} fw-bold shadow-sm p-3 mb-3" role="alert">
+                    {{result}}
+                </div>
+
+                <div class="alert alert-light border shadow-sm p-3 mb-4" role="alert">
+                    <small class="text-muted">{{check_time}}</small>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="row g-2 mb-4">
+                    <div class="col-12 col-sm-6">
+                        <form action="/start" method="post" class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg shadow-sm" {{ "disabled" if is_active else "" }}>
+                                Start Monitoring
+                            </button>
+                        </form>
+                    </div> 
+                    <div class="col-12 col-sm-6">
+                        <form action="/stop" method="post" class="d-grid">
+                            <button type="submit" class="btn btn-danger btn-lg shadow-sm" {{ "disabled" if not is_active else "" }}>
+                                Stop Monitoring
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="d-grid mb-4">
+                    <form action="/check_now" method="post">
+                        <button type="submit" class="btn btn-outline-info btn-lg w-100 shadow-sm">
+                            Check Now
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Recent History -->
+                {% if history %}
+                <div class="mt-4 text-start">
+                    <h5 class="mb-3">Recent Activity</h5>
+                    <ul class="list-group shadow-sm">
+                        {% for timestamp, status, message in history[:3] %}
+                        <li class="list-group-item {% if status == 'departed' %}list-group-item-warning{% elif status == 'error' %}list-group-item-danger{% else %}list-group-item-light{% endif %}">
+                            <small class="text-muted d-block">{{ timestamp }}</small>
+                            {{ message }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% if history|length > 3 %}
+                    <div class="text-center mt-3">
+                        <a href="/history" class="btn btn-sm btn-outline-secondary">View Full History</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
         </div>
-     </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-auto">
+        <div class="container">
+            <p class="mb-0"><small>&copy; 2025 Bus Monitor. Last refresh: <span id="refreshTime"></span></small></p>
+        </div>
+    </footer>
 
     <script>
-        // Auto refresh the page every 15 seconds
+        // Auto refresh the page every 30 seconds
+        const refreshInterval = 30000;
         setTimeout(function() {
             window.location.reload();
-        }, 15000);
+        }, refreshInterval);
+
+        // Display last refresh time
+        document.getElementById('refreshTime').textContent = new Date().toLocaleTimeString();
     </script>
 </body>
 </html>
