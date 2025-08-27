@@ -19,8 +19,8 @@ from google.oauth2.service_account import Credentials
 SPREADSHEET_ID = '1sKIxt7K583QofrB3yOiDo-7--CUp0wxAOg2vMIWZHwA' #school sheet
 #SPREADSHEET_ID = '1p4LyleLPwSBTyKfNirlpo5F2bbe6kYI_VWkfFrWoFiw' #test sheet
 
-# The range to check (D19)
-RANGE_NAME = 'PM!D19:E19'
+# The range to check (D15)
+RANGE_NAME = 'PM!D15:E15'
 
 # Store API key in a variable
 API_KEY = None  # Replace with your actual API key or set below
