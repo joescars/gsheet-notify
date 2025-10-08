@@ -22,11 +22,11 @@ jobs:
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v2.0
         with:
-          envkey_spreadsheet_id: ${{ secrets.SPREADSHEET_ID }}
-          envkey_range_name: ${{ secrets.RANGE_NAME }}
-          envkey_polling_interval: ${{ vars.POLLING_INTERVAL }}
-          envkey_api_key: ${{ secrets.API_KEY }}
-          envkey_notification_topic: ${{ vars.NOTIFICATION_TOPIC }}
+          envkey_PREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          envkey_RANGE_NAME: ${{ secrets.RANGE_NAME }}
+          envkey_POLLING_INTERVAL: ${{ vars.POLLING_INTERVAL }}
+          envkey_GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          envkey_NOTIFICATION_TOPIC: ${{ vars.NOTIFICATION_TOPIC }}
           host: "0.0.0.0"
           # directory: $APP_DIR
           file_name: .env
