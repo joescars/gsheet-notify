@@ -68,9 +68,9 @@ def load_config():
     }
     
     for env_var, config_key in env_mappings.items():
-        logger.info(f"Checking environment variable: {env_var}={value} ")
         if os.environ.get(env_var):
             value = os.environ.get(env_var)
+            logger.info(f"Checking environment variable: {env_var}={value} ")
             # Convert numeric values
             if config_key in ['polling_interval', 'port']:
                 try:
