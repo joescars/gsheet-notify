@@ -30,10 +30,11 @@ jobs:
           file_name: ".env"
           fail_on_empty: false
           sort_keys: false
-      - name: Check if .env file exists
+      - name: Check for .env and copy it
         run: |
           pwd
-          ls -la
+          ls -la *.env
+          cp -r ${{github.workspace}}/.env $APP_DIR
       - name: Copy files to folder
         run: |
           cp -r ${{github.workspace}}/* $APP_DIR
