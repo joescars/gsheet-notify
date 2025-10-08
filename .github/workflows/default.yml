@@ -27,8 +27,13 @@ jobs:
           POLLING_INTERVAL: ${{ vars.POLLING_INTERVAL }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           NOTIFICATION_TOPIC: ${{ vars.NOTIFICATION_TOPIC }}
+          file_name: ".env"
           fail_on_empty: false
           sort_keys: false
+      - name: Check if .env file exists
+        run: |
+          pwd
+          ls -la
       - name: Copy files to folder
         run: |
           cp -r ${{github.workspace}}/* $APP_DIR
