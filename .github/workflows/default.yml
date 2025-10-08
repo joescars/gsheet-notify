@@ -33,7 +33,7 @@ jobs:
       - name: Check for .env and copy it
         run: |
           pwd
-          ls -la *.env
+          ls -la
           cp -r ${{github.workspace}}/.env $APP_DIR
       - name: Copy files to folder
         run: |
