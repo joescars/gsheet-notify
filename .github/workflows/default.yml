@@ -27,8 +27,9 @@ jobs:
           envkey_polling_interval: ${{ vars.POLLING_INTERVAL }}
           envkey_api_key: ${{ secrets.API_KEY }}
           envkey_notification_topic: ${{ vars.NOTIFICATION_TOPIC }}
+          host: "0.0.0.0"
           # directory: $APP_DIR
-          file_name: config.yaml
+          file_name: .env
           fail_on_empty: false
           sort_keys: false
       - name: Copy files to folder

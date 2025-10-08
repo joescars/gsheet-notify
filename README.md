@@ -127,9 +127,9 @@ Description=Google Spreadsheet Monitor Service
 After=network.target
 
 [Service]
-User=pi
-WorkingDirectory=/home/pi/gsheet-notifier-copilot
-ExecStart=/home/pi/gsheet-notifier-copilot/venv/bin/python /home/pi/gsheet-notifier-copilot/run.py
+User=runneruser
+WorkingDirectory=/home/runneruser/services/ghseet-notify
+ExecStart=/home/runneruser/services/ghseet-notify/venv/bin/python /home/runneruser/services/ghseet-notify/run.py
 Restart=on-failure
 RestartSec=5
 Environment=PYTHONUNBUFFERED=1
