@@ -9,6 +9,7 @@ on:
 
 env:
   APP_DIR: /home/runneruser/services/ghseet-notify
+  SERVICE_NAME: gsheet-monitor.service
 jobs:
   build:
     runs-on: self-hosted
@@ -45,6 +46,28 @@ jobs:
           source venv/bin/activate
           pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name: Check if service unit file exists
+        run: |
+          if systemctl list-units --all -t service --full --no-legend "$SERVICE_NAME" | grep -q "$SERVICE_NAME"; then
+            echo "Service '$SERVICE_NAME' unit file exists."
+            exit 0
+          else
+            echo "Service '$SERVICE_NAME' unit file does not exist."
+            exit 1
+          fi
+      - name: Execute if success
+        if: success()
+        run: echo "Service exists, skipping installation."
+      - name: Install service if not exists
+        if: failure()
+        run: |
+          # cd $APP_DIR/scripts
+          # chmod +x install_service.sh
+          # ./install_service.sh
+          echo "Service installed."
+
+
       - name: Restart Service
         run: |
           sudo systemctl restart gsheet-monitor.service
