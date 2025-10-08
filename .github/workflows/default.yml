@@ -7,20 +7,38 @@ on:
     branches:
       - main
 
+env:
+  APP_DIR: /home/runneruser/services/gsheet-notifier-copilot
 jobs:
   build:
     runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+      - name: Create Python virtual environment
+        run: |
+          cd $APP_DIR
+          /usr/bin/python3.11 -m venv venv      
       - name: Copy files to folder
         run: |
-          cp -r ${{github.workspace}}/* /home/pi/gsheet-notifier-copilot
+          cp -r ${{github.workspace}}/* $APP_DIR
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_spreadsheet_id: ${{ secrets.SPREADSHEET_ID }}
+          envkey_range_name: ${{ secrets.RANGE_NAME }}
+          envkey_polling_interval: ${{ vars.POLLING_INTERVAL }}
+          envkey_api_key: ${{ secrets.API_KEY }}
+          envkey_notification_topic: ${{ vars.NOTIFICATION_TOPIC }}
+          directory: $APP_DIR
+          file_name: config.yaml
+          fail_on_empty: false
+          sort_keys: false
       
       - name: Install dependencies
         run: |
-          cd /home/pi/gsheet-notifier-copilot
+          cd $APP_DIR
           source venv/bin/activate
           pip install --upgrade pip
           pip install -r requirements.txt
