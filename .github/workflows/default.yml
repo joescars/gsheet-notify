@@ -8,7 +8,7 @@ on:
       - main
 
 env:
-  APP_DIR: /home/runneruser/services/gsheet-notifier-copilot
+  APP_DIR: /home/runneruser/services/ghseet-notify
 jobs:
   build:
     runs-on: self-hosted
