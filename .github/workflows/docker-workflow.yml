@@ -5,7 +5,7 @@ name: gsheet-docker-workflow
 on: workflow_dispatch
 
 env:
-  APP_DIR: /home/runneruser/services/ghseet-notify
+  APP_DIR: /home/runneruser/services/gsheet-notify-docker
 
 jobs:
   build:
