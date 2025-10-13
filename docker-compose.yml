@@ -1,0 +1,7 @@
+services:
+  gsheet:
+    build: .
+    container_name: notifier
+    ports:
+      - "5588:5588"
+    restart: unless-stopped

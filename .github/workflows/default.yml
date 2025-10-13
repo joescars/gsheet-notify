@@ -1,11 +1,8 @@
 # testing runner on new server
 # 
-name: ghseet-workflow
+name: gsheet-workflow
 
-on:
-  push:
-    branches:
-      - main
+on: workflow_dispatch
 
 env:
   APP_DIR: /home/runneruser/services/ghseet-notify
