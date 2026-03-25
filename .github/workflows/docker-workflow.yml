@@ -39,6 +39,6 @@ jobs:
       - name: Build and Run Docker Container
         run: |
           cd ${{env.APP_DIR}}
-          docker compose up -d --build --label url=${{ vars.WEBSITE_URL }}
+          docker compose up -d --build
 
 
