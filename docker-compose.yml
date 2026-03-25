@@ -6,4 +6,4 @@ services:
       - "5588:5588"
     restart: unless-stopped
     labels:
-      url=${{ vars.WEBSITE_URL }}
+      url: "${{ vars.WEBSITE_URL }}"
