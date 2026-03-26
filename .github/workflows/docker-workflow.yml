@@ -37,9 +37,11 @@ jobs:
           cp -r ${{github.workspace}}/* $APP_DIR
 
       - name: Build and Run Docker Container
+        env:
+          WEBSITE_URL: ${{ vars.WEBSITE_URL }}
         run: |
           cd ${{env.APP_DIR}}
-          docker compose build --label "url=${{ vars.WEBSITE_URL }}"
+          docker compose build
           docker compose up -d
 
 
