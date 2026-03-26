@@ -1,6 +1,9 @@
 services:
   gsheet:
-    build: .
+    build:
+      context: .
+      args:
+        - WEBSITE_URL
     container_name: notifier
     ports:
       - "5588:5588"
